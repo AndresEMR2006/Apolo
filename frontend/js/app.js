@@ -1,21 +1,6 @@
-async function obtenerEstado() {
+async function hacerSolicitud(url) {
   try {
-    const response = await fetch("http://localhost:8080/api/status");
-
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error("Error al obtener el mensaje:", error);
-  }
-}
-
-async function obtenerCanciones() {
-  try {
-    const response = await fetch("http://localhost:8080/api/tracks");
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.status}`);
@@ -26,7 +11,24 @@ async function obtenerCanciones() {
     return data;
   } catch (error) {
     console.error("Error al obtener el mensaje:", error);
+    return null;
+  }
+}
+
+async function obtenerEstado() {
+  const estado = await hacerSolicitud("http://localhost:8080/api/status");
+  if (estado != null) {
+    console.log(estado);
+  }
+}
+
+async function obtenerCanciones() {
+  const canciones = await hacerSolicitud("http://localhost:8080/api/tracks");
+
+  if (canciones == null) {
     return [];
+  } else {
+    return canciones;
   }
 }
 
