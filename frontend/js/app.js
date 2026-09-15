@@ -23,19 +23,23 @@ async function obtenerCanciones() {
 
     const data = await response.json();
 
-    console.log(data);
-    console.log(data[0]);
-
-    const listaCanciones = document.getElementById("lista-canciones");
-    data.forEach((cancion) => {
-      const elemento = document.createElement("li");
-      elemento.textContent = cancion.name + "-" + cancion.artists;
-      listaCanciones.appendChild(elemento);
-    });
+    return data;
   } catch (error) {
     console.error("Error al obtener el mensaje:", error);
+    return [];
   }
 }
 
+async function mostrarCanciones() {
+  const canciones = await obtenerCanciones();
+
+  const listaCanciones = document.getElementById("lista-canciones");
+  canciones.forEach((cancion) => {
+    const elemento = document.createElement("li");
+    elemento.textContent = cancion.name + "-" + cancion.artists;
+    listaCanciones.appendChild(elemento);
+  });
+}
+
 obtenerEstado();
-obtenerCanciones();
+mostrarCanciones();
