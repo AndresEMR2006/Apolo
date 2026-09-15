@@ -43,6 +43,8 @@ async function mostrarCanciones() {
     return;
   }
 
+  listaCanciones.innerHTML = "";
+
   canciones.forEach((cancion) => {
     const elemento = document.createElement("li");
     elemento.textContent = cancion.name + "-" + cancion.artists;
