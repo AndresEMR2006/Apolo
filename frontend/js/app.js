@@ -23,13 +23,7 @@ async function obtenerEstado() {
 }
 
 async function obtenerCanciones() {
-  const canciones = await hacerSolicitud("http://localhost:8080/api/tracks");
-
-  if (canciones == null) {
-    return [];
-  } else {
-    return canciones;
-  }
+  return await hacerSolicitud("http://localhost:8080/api/tracks");
 }
 
 async function mostrarCanciones() {
@@ -39,6 +33,15 @@ async function mostrarCanciones() {
   estadoCanciones.textContent = "Cargando canciones...";
   const canciones = await obtenerCanciones();
   estadoCanciones.textContent = "";
+
+  if (canciones == null) {
+    estadoCanciones.textContent = "Error al obtener las canciones";
+    return;
+  }
+  if (canciones.length === 0) {
+    estadoCanciones.textContent = "No hay canciones";
+    return;
+  }
 
   canciones.forEach((cancion) => {
     const elemento = document.createElement("li");
