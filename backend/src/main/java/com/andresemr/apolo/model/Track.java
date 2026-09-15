@@ -5,23 +5,29 @@ public class Track {
     private Long id;
     private String name;
     private String artist;
+    private String fileName;
 
-    public Track(Long id, String name, String artist){
+    public Track(Long id, String name, String artist, String fileName){
         this.id = id;
         this.name = name;
         this.artist = artist;
+        this.fileName = fileName;
     }
 
     public Long getId(){
-        return this.id;
+        return id;
     }
 
     public String getName(){
-        return this.name;
+        return name;
     }
 
     public String getArtists(){
-        return this.artist;
+        return artist;
+    }
+
+    public String getFileName(){
+        return fileName;
     }
 
 }

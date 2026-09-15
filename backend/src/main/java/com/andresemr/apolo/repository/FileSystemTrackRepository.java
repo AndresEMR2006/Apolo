@@ -40,9 +40,10 @@ public class FileSystemTrackRepository implements TrackRepository {
             long id = 1;
 
             for (Path file : files) {
-                String name = removeExtension(file.getFileName().toString());
+                String fileName = file.getFileName().toString();
+                String name = removeExtension(fileName);
 
-                tracks.add(new Track(id, name, ""));
+                tracks.add(new Track(id, name, "", fileName));
 
                 id++;
             }
