@@ -33,9 +33,13 @@ async function obtenerCanciones() {
 }
 
 async function mostrarCanciones() {
-  const canciones = await obtenerCanciones();
-
+  const estadoCanciones = document.getElementById("estado-canciones");
   const listaCanciones = document.getElementById("lista-canciones");
+
+  estadoCanciones.textContent = "Cargando canciones...";
+  const canciones = await obtenerCanciones();
+  estadoCanciones.textContent = "";
+
   canciones.forEach((cancion) => {
     const elemento = document.createElement("li");
     elemento.textContent = cancion.name + "-" + cancion.artists;
