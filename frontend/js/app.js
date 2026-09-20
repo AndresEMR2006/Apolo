@@ -52,5 +52,63 @@ async function mostrarCanciones() {
   });
 }
 
+async function obtenerAudio(url) {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.status}`);
+    }
+
+    return await response.blob();
+  } catch (error) {
+    console.error("Error al obtener el audio:", error);
+    return null;
+  }
+}
+
+async function reproducirCancion(id) {
+  const url = `http://localhost:8080/api/tracks/${encodeURIComponent(id)}/audio`;
+  const blob = await obtenerAudio(url);
+
+  if (blob == null) {
+    console.log("5. El audio no se pudo obtener");
+    return;
+  }
+
+  const audioUrl = URL.createObjectURL(blob);
+  const reproductor = document.getElementById("reproductor");
+
+  reproductor.src = audioUrl;
+
+  await reproductor.play();
+}
+
 obtenerEstado();
 mostrarCanciones();
+
+const formularioBusqueda = document.getElementById("formulario-busqueda");
+const nombreCancion = document.getElementById("nombre-cancion");
+
+formularioBusqueda.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const input = document.getElementById("id-cancion");
+  const id = input.value.trim();
+
+  if (id === "") {
+    return;
+  }
+
+  const cancion = await hacerSolicitud(
+    `http://localhost:8080/api/tracks/${encodeURIComponent(id)}`,
+  );
+
+  if (cancion == null) {
+    console.log("No se encontró la canción");
+    return;
+  }
+
+  nombreCancion.textContent = cancion.name;
+  reproducirCancion(cancion.id);
+});

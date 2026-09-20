@@ -4,11 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Apolo</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <h1>Apolo</h1>
 
     <h2>Canciones</h2>
+
+    <form id="formulario-busqueda">
+      <label> Buscar cancion </label>
+      <section>
+        <input type="text" id="id-cancion" name="id-cancion" />
+        <button type="submit">Buscar</button>
+      </section>
+    </form>
+
+    <p id="nombre-cancion"></p>
+    <audio id="reproductor" controls></audio>
 
     <p id="estado-canciones"></p>
     <ul id="lista-canciones"></ul>
