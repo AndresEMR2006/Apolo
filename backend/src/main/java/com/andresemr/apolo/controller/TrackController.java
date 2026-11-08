@@ -18,7 +18,7 @@ import com.andresemr.apolo.model.Track;
 
 @RestController
 @RequestMapping("/api/tracks")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = {"http://localhost:5500", "http://localhost:4200"})
 public class TrackController {
 
     @Autowired 
