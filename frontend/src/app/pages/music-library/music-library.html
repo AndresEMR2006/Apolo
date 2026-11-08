@@ -1,0 +1,77 @@
+<section
+  class="flex h-full min-h-0 w-full flex-col overflow-hidden border border-[var(--color-library-table-outline)] bg-[var(--color-library-background)] text-[var(--color-library-text)]"
+>
+  <div
+    class="flex items-center justify-between border-b border-[var(--color-library-border)] bg-[var(--color-library-header-background)] px-4 py-2"
+  >
+    <div class="flex flex-col gap-1">
+      <div
+        class="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-library-header-label)]"
+      >
+        Biblioteca
+      </div>
+      <div class="flex items-center gap-3">
+        <h2 class="text-lg font-extrabold leading-none text-[var(--color-library-title)]">
+          Mi música
+        </h2>
+        <span
+          class="rounded-full bg-[var(--color-library-surface-raised)] px-2.5 py-1 text-xs font-medium text-[var(--color-library-text-secondary)]"
+        >
+          {{ tracks().length }} canciones
+        </span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 text-[var(--color-library-icon)]">
+      <span class="text-lg leading-none">⇅</span>
+      <span class="text-lg leading-none">▾</span>
+    </div>
+  </div>
+
+  @if (serverStatus) {
+    <div
+      class="min-h-0 flex-1 overflow-y-auto [scrollbar-color:var(--color-library-scrollbar-thumb)_var(--color-library-scrollbar-track)] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-track]:bg-[var(--color-library-scrollbar-track)] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-solid [&::-webkit-scrollbar-thumb]:border-[var(--color-library-scrollbar-track)] [&::-webkit-scrollbar-thumb]:bg-[var(--color-library-scrollbar-thumb)] [&::-webkit-scrollbar-thumb:hover]:bg-[var(--color-library-scrollbar-thumb-hover)]"
+    >
+      <table class="w-full border-separate border-spacing-0 text-left">
+        <thead class="sticky top-0 bg-[var(--color-library-surface-raised)]">
+          <tr class="border-b border-[var(--color-library-border)]">
+            <th
+              class="border-b border-solid border-[var(--color-library-border)] px-4 pb-3 pt-3 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--color-library-table-header-text)]"
+            >
+              Título
+            </th>
+            <th
+              class="border-b border-solid border-[var(--color-library-border)] px-4 pb-3 pt-3 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--color-library-table-header-text)]"
+            >
+              Artista
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (track of tracks(); track track.id) {
+            <tr
+              (click)="agregarCancion(track)"
+              class="bg-[var(--color-library-row)] even:bg-[var(--color-library-row-alternate)]"
+            >
+              <td
+                class="border-b border-solid border-[var(--color-library-border)] px-4 py-2.5 text-[1.05rem] font-medium text-[var(--color-library-row-text)]"
+              >
+                {{ track.name }}
+              </td>
+              <td
+                class="border-b border-solid border-[var(--color-library-border)] px-4 py-2.5 text-[1.05rem] font-medium text-[var(--color-library-artist-text)]"
+              >
+                {{ track.artists }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="flex flex-1 items-center justify-center text-lg text-[var(--color-library-icon)]">
+      Servidor apagado
+    </div>
+  }
+</section>

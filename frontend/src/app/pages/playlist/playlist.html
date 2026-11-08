@@ -1,0 +1,48 @@
+<section
+  class="flex h-full min-h-0 w-full flex-col overflow-hidden border border-[var(--color-library-table-outline)] bg-[var(--color-library-background)] text-[var(--color-library-text)]"
+  aria-label="Lista de reproducción"
+>
+  <header
+    class="flex shrink-0 items-center justify-between border-b border-[var(--color-library-border)] bg-[var(--color-library-header-background)] px-4 py-2"
+  >
+    <div class="flex flex-col gap-1">
+      <span class="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-library-header-label)]">
+        Lista de reproducción
+      </span>
+      <h2 class="text-lg font-extrabold leading-none text-[var(--color-library-title)]">Cola</h2>
+    </div>
+    <button
+      type="button"
+      aria-label="Vaciar lista de reproducción"
+      title="Vaciar cola"
+      [disabled]="queue.playList().length === 0"
+      (click)="queue.limpiar()"
+      class="text-[var(--color-library-icon)] transition-colors hover:text-[var(--color-library-title)] disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          d="M7 21a2 2 0 0 1-2-2V7h14v12a2 2 0 0 1-2 2H7Zm10-12H7v10h10V9ZM9 3h6l1 2h4v2H4V5h4l1-2Zm0 8h2v6H9v-6Zm4 0h2v6h-2v-6Z"
+        />
+      </svg>
+    </button>
+  </header>
+
+  <div
+    class="min-h-0 flex-1 overflow-y-auto [scrollbar-color:var(--color-library-scrollbar-thumb)_var(--color-library-scrollbar-track)] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-track]:bg-[var(--color-library-scrollbar-track)] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-solid [&::-webkit-scrollbar-thumb]:border-[var(--color-library-scrollbar-track)] [&::-webkit-scrollbar-thumb]:bg-[var(--color-library-scrollbar-thumb)] [&::-webkit-scrollbar-thumb:hover]:bg-[var(--color-library-scrollbar-thumb-hover)]"
+  >
+    @for (track of queue.playList(); track $index) {
+      <button
+        type="button"
+        (click)="seleccionarCancion($index)"
+        [attr.aria-current]="queue.currentIndex() === $index ? 'true' : null"
+        class="block w-full truncate border-b border-[var(--color-library-border)] px-2 py-2.5 text-left text-sm font-medium text-[var(--color-library-row-text)] transition-colors hover:bg-[var(--color-library-surface-raised)] aria-[current=true]:bg-[var(--color-library-surface-raised)]"
+      >
+        {{ track.name }}
+      </button>
+    } @empty {
+      <p class="px-3 py-4 text-sm text-[var(--color-library-text-secondary)]">
+        Haz clic en una canción de la biblioteca para agregarla a la cola.
+      </p>
+    }
+  </div>
+</section>

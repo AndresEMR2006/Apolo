@@ -1,6 +1,5 @@
 package com.andresemr.apolo.service;
 
-import java.lang.StackWalker.Option;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 
 import com.andresemr.apolo.model.Track;
 import com.andresemr.apolo.repository.FileSystemTrackRepository;

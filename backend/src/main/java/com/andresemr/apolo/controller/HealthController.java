@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.andresemr.apolo.model.HealthResponse;
 
 @RestController 
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = {"http://localhost:5500", "http://localhost:4200"})
 public class HealthController {
 
     @GetMapping("api/status")
